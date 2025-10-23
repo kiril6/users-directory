@@ -1,0 +1,64 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="logo.svg" alt="awork logo" class="app-logo" />
+        <h1 class="app-title">User Directory</h1>
+      </div>
+      
+      <div class="header-stats">
+        <div class="stat-badge">
+          <span class="stat-number">{{ users().length }}</span>
+          <span class="stat-label">Users Loaded</span>
+        </div>
+        @if (pagination().hasMore) {
+          <button 
+            class="load-more-btn" 
+            (click)="loadMoreUsers()"
+            [disabled]="isLoading()"
+          >
+            {{ isLoading() ? 'Loading...' : 'Load More' }}
+          </button>
+        }
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    @if (error()) {
+      <div class="error-container">
+        <div class="error-icon">❌</div>
+        <h2>Oops! Something went wrong</h2>
+        <p>{{ error() }}</p>
+        <button class="retry-btn" (click)="retryLoad()">
+          Try Again
+        </button>
+      </div>
+    } @else if (isLoading() && users().length === 0) {
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <h2>Loading Amazing Users...</h2>
+        <p>Fetching 5,000 users from around the world</p>
+      </div>
+    } @else if (users().length > 0) {
+      <app-user-list [users]="users()" #userList />
+      
+      @if (isLoading()) {
+        <div class="loading-more">
+          <div class="loading-spinner small"></div>
+          <span>Loading more users...</span>
+        </div>
+      }
+    } @else {
+      <div class="no-data">
+        <div class="no-data-icon">👤</div>
+        <h2>No Users Available</h2>
+        <p>We couldn't find any users to display.</p>
+      </div>
+    }
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; {{ getCurrentYear() }} awork User Directory Challenge - Built with Angular 18</p>
+  </footer>
+</div>
