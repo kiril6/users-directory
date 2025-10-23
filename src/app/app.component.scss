@@ -1,0 +1,347 @@
+@import 'ease/ease-import.scss';
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  background: linear-gradient(135deg, $color-white 0%, #f8f9fa 100%);
+  border-bottom: 4px solid $color-blue;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .app-logo {
+      height: 48px;
+      width: auto;
+    }
+
+    .app-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: $color-night;
+      margin: 0;
+      background: linear-gradient(135deg, $color-blue 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .stat-badge {
+      background: linear-gradient(135deg, $color-blue 0%, #4285f4 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+
+      .stat-number {
+        display: block;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+    }
+
+    .load-more-btn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: $color-white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  border: 2px solid #ff6b6b;
+
+  .error-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: #ff6b6b;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    color: #6c7b7f;
+    font-size: 16px;
+    margin: 0 0 24px 0;
+  }
+
+  .retry-btn {
+    background: linear-gradient(135deg, $color-blue 0%, #4285f4 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background: $color-white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  .loading-spinner {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #e1e8ed;
+    border-top: 6px solid $color-blue;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    color: $color-night;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    color: #6c7b7f;
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+.loading-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  margin-top: 24px;
+  background: $color-white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .loading-spinner.small {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #e1e8ed;
+    border-top: 3px solid $color-blue;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  span {
+    color: #6c7b7f;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: $color-white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  .no-data-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+
+  h2 {
+    color: $color-night;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+  }
+
+  p {
+    color: #6c7b7f;
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+.app-footer {
+  background: $color-night;
+  color: $color-white;
+  padding: 20px 24px;
+  text-align: center;
+  margin-top: auto;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .app-header {
+    .header-content {
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .header-stats {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-section .app-title {
+      font-size: 24px;
+    }
+  }
+
+  .app-main {
+    padding: 16px;
+  }
+
+  .loading-container {
+    padding: 40px 20px;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    .logo-section {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+
+      .app-logo {
+        height: 40px;
+      }
+
+      .app-title {
+        font-size: 20px;
+      }
+    }
+
+    .header-stats {
+      .stat-badge {
+        padding: 8px 16px;
+
+        .stat-number {
+          font-size: 20px;
+        }
+      }
+
+      .load-more-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+      }
+    }
+  }
+}

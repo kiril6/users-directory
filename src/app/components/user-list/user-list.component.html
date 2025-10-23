@@ -1,0 +1,127 @@
+<!-- Controls Section -->
+<div class="controls-section">
+  <div class="search-container">
+    <input 
+      type="text" 
+      placeholder="Search users..." 
+      autocomplete="off"
+      class="search-input"
+      (input)="onSearchInput($event)"
+    >
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <div class="grouping-controls">
+    <button 
+      class="toggle-group-btn"
+      [class.active]="showGrouped()"
+      (click)="toggleGroupView()"
+    >
+      {{ showGrouped() ? '📊 Grouped View' : '📋 List View' }}
+    </button>
+
+    @if (showGrouped()) {
+      <div class="grouping-options">
+        @for (option of groupingOptions; track option.value) {
+          <button 
+            class="grouping-btn"
+            [class.active]="currentGrouping() === option.value"
+            (click)="changeGrouping(option.value)"
+          >
+            <span class="grouping-icon">{{ option.icon }}</span>
+            <span class="grouping-label">{{ option.label }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section">
+  <div class="stat-item">
+    <span class="stat-value">{{ totalUsers() }}</span>
+    <span class="stat-label">Total Users</span>
+  </div>
+  @if (showGrouped()) {
+    <div class="stat-item">
+      <span class="stat-value">{{ totalGroups() }}</span>
+      <span class="stat-label">Groups</span>
+    </div>
+  }
+  @if (searchTerm()) {
+    <div class="stat-item">
+      <span class="stat-value">{{ filteredUsers().length }}</span>
+      <span class="stat-label">Filtered Results</span>
+    </div>
+  }
+</div>
+
+<!-- Loading State -->
+@if (isGroupingLoading()) {
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Organizing users...</p>
+  </div>
+}
+
+<!-- Main Content -->
+@if (users().length && !isGroupingLoading()) {
+  @if (showGrouped()) {
+    <!-- Grouped View -->
+    <div class="grouped-view">
+      @for (group of groupedUsers(); track trackByGroupKey($index, group)) {
+        <div class="user-group">
+          <div class="group-header">
+            <h3 class="group-title">{{ group.label }}</h3>
+            <span class="group-count">{{ group.count }} users</span>
+          </div>
+          
+          <cdk-virtual-scroll-viewport 
+            class="group-viewport" 
+            [itemSize]="itemSize"
+            [maxBufferPx]="200"
+            [minBufferPx]="100"
+          >
+            <div *cdkVirtualFor="let user of group.users; trackBy: trackByUserId" 
+                 class="virtual-item">
+              <app-user-item 
+                [user]="user" 
+                [allUsers]="users()"
+                [expanded]="expandedUser() === user.login?.uuid"
+                (toggleExpansion)="toggleUserExpansion(user.login?.uuid || '')"
+              />
+            </div>
+          </cdk-virtual-scroll-viewport>
+        </div>
+      }
+    </div>
+  } @else {
+    <!-- Flat List View -->
+    <div class="list-view">
+      <cdk-virtual-scroll-viewport 
+        class="main-viewport" 
+        [itemSize]="itemSize"
+        [maxBufferPx]="400"
+        [minBufferPx]="200"
+      >
+        <div *cdkVirtualFor="let user of getFlatUsersList(); trackBy: trackByUserId" 
+             class="virtual-item">
+          <app-user-item 
+            [user]="user" 
+            [allUsers]="users()"
+            [expanded]="expandedUser() === user.login?.uuid"
+            (toggleExpansion)="toggleUserExpansion(user.login?.uuid || '')"
+          />
+        </div>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  }
+} @else if (!isGroupingLoading()) {
+  <!-- No Data State -->
+  <div class="no-data-container">
+    <div class="no-data-icon">👥</div>
+    <h3>No users found</h3>
+    <p>Try adjusting your search criteria</p>
+  </div>
+}

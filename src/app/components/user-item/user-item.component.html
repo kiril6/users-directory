@@ -1,0 +1,116 @@
+<div class="user-item" [class.expanded]="expanded()">
+  <div class="user-item__main" @fadeIn>
+    <div class="user-item__avatar">
+      <img 
+        class="user-item__image" 
+        [src]="user().imageSrc" 
+        [alt]="user().fullName + ' avatar'"
+        title="User avatar"
+        loading="lazy"
+      />
+      <div class="user-item__status-badge">
+        <span class="gender-icon">{{ getGenderIcon() }}</span>
+      </div>
+    </div>
+
+    <div class="user-item__info">
+      <h3 class="user-item__name">
+        {{ user().firstname }} {{ user().lastname }}
+      </h3>
+      
+      <div class="user-item__details">
+        <div class="detail-item">
+          <span class="detail-icon">📧</span>
+          <span class="detail-text">{{ user().email }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-icon">📱</span>
+          <span class="detail-text">{{ user().phone }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-icon">🌍</span>
+          <span class="detail-text">{{ nationalityDisplay() }} ({{ nationalitiesCount() }} total)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-item__actions">
+      <button 
+        class="expand-btn" 
+        [class.expanded]="expanded()"
+        (click)="onItemClick()"
+        [attr.aria-expanded]="expanded()"
+        [attr.aria-label]="'Toggle details for ' + user().fullName"
+        [title]="expanded() ? 'Collapse user details' : 'Expand user details'"
+      >
+        <span class="expand-icon plus-minus">{{ expanded() ? '−' : '+' }}</span>
+      </button>
+    </div>
+  </div>
+
+  @if (expanded()) {
+    <div class="user-item__expanded" @expandCollapse>
+      <div class="expanded-content">
+        <div class="expanded-section">
+          <h4 class="section-title">Personal Information</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Age</span>
+              <span class="info-value">{{ ageDisplay() }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Gender</span>
+              <span class="info-value">{{ getGenderIcon() }} {{ getGenderDisplay() }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Nationality</span>
+              <span class="info-value">{{ nationalityDisplay() }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expanded-section">
+          <h4 class="section-title">Location</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Address</span>
+              <span class="info-value">{{ fullAddress() }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">City</span>
+              <span class="info-value">{{ user().city || 'Unknown' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">State/Province</span>
+              <span class="info-value">{{ user().state || 'Unknown' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Country</span>
+              <span class="info-value">{{ user().country || 'Unknown' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Postcode</span>
+              <span class="info-value">{{ user().postcode || 'Unknown' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="expanded-section">
+          <h4 class="section-title">Account Information</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">Username</span>
+              <span class="info-value">{{ user().login?.username || 'Unknown' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">User ID</span>
+              <span class="info-value">{{ user().login?.uuid || 'Unknown' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
