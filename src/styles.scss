@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 @import 'ease/ease-styles';
 
 /* Global improvements for the awork challenge */
@@ -135,7 +134,7 @@ input {
 
 /* CDK Virtual Scroll improvements */
 .cdk-virtual-scroll-viewport {
-  transform: translateZ(0); /* Enable hardware acceleration */
+  transform: translateZ(0);
 }
 
 .cdk-virtual-scroll-content-wrapper {
@@ -151,19 +150,16 @@ input[type="submit"],
   transition: all 0.2s ease-in-out;
 }
 
-/* Dark mode support preparation */
 @media (prefers-color-scheme: dark) {
   // Future dark mode styles would go here
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
   button, input {
     border: 2px solid currentColor;
   }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
