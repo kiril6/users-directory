@@ -39,7 +39,6 @@ describe('UserItemComponent', () => {
   });
 
   it('should calculate the count of users with same nationality', () => {
-    // The computed signal must be called as a function
     const expectedNationalitiesCount = mockedUsers.filter(u => u.nat === mockedUsers[0].nat).length;
     expect(component.nationalitiesCount()).toEqual(expectedNationalitiesCount);
   });

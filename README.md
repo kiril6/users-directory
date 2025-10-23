@@ -158,7 +158,6 @@ src/
 
 ### Web Workers Integration
 ```typescript
-// Grouping happens in Web Worker to prevent UI blocking
 this.userGroupingService.groupUsers(users, 'nationality');
 ```
 

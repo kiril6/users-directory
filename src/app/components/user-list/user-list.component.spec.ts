@@ -109,7 +109,7 @@ describe('UserListComponent', () => {
       fixture.detectChanges();
       const groups = component.groupedUsers();
       expect(groups.length).toBeGreaterThan(0);
-      expect(groups[0]?.key.length).toBeGreaterThanOrEqual(2); // e.g., 'US', 'DE', 'Unknown'
+      expect(groups[0]?.key.length).toBeGreaterThanOrEqual(2);
       done();
     }, 10);
   });
@@ -120,7 +120,6 @@ describe('UserListComponent', () => {
       fixture.detectChanges();
       const groups = component.groupedUsers();
       expect(groups.length).toBeGreaterThan(0);
-      // Accept both '65+' and labels containing 'years'
       expect(groups[0]?.label === '65+' || (groups[0]?.label?.includes('years'))).toBeTrue();
       done();
     }, 10);
@@ -139,13 +138,12 @@ describe('UserListComponent', () => {
   });
 
   it('should filter users by search term', (done) => {
-    // Use a value that is guaranteed to match at least one user, and test case-insensitivity
     const firstUser = mockedUsers[0];
     let searchValue = '';
     if (firstUser.firstname) searchValue = firstUser.firstname.toLowerCase();
     else if (firstUser.lastname) searchValue = firstUser.lastname.toLowerCase();
     else if (firstUser.email) searchValue = firstUser.email.toLowerCase();
-    else searchValue = 'a'; // fallback, should match something in mock data
+    else searchValue = 'a';
 
     component.onSearchInput({ target: { value: searchValue } } as any);
     fixture.detectChanges();

@@ -67,23 +67,19 @@ The application is running at: `http://localhost:4200`
 
 ### Web Worker Grouping
 ```typescript
-// Offloads heavy grouping operations to prevent UI blocking
 this.userGroupingService.groupUsers(users, 'nationality');
 ```
 
 ### Virtual Scrolling
 ```html
-<!-- Handles thousands of users efficiently -->
 <cdk-virtual-scroll-viewport [itemSize]="itemSize">
   <div *cdkVirtualFor="let user of users; trackBy: trackByUserId">
-    <!-- User content -->
   </div>
 </cdk-virtual-scroll-viewport>
 ```
 
 ### Reactive Search
 ```typescript
-// Debounced search with RxJS
 this.searchSubject.pipe(
   debounceTime(300),
   distinctUntilChanged()
